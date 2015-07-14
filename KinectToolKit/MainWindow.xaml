@@ -15,9 +15,9 @@
         <Button Content="Down" Height="39" HorizontalAlignment="Left" Margin="187,612,0,0" Name="down" VerticalAlignment="Top" Width="92" Click="down_Click" Grid.Column="3" FontSize="14" />
         <TextBlock Grid.Column="4" Height="2" HorizontalAlignment="Left" Margin="28,44,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="14" />
         <Button Content="连接/断开" Grid.Column="3" Height="51" HorizontalAlignment="Left" Margin="185,44,0,0" Name="start" VerticalAlignment="Top" Width="123" Click="start_Click" FontSize="18" FontStretch="Expanded" FontStyle="Normal" />
-        <RadioButton Content="RadioButton" Grid.Column="3" HorizontalAlignment="Right" Margin="0,304,88,0" Name="radioButton1" Width="13" IsChecked="True" Checked="radioButton1_Checked" Height="27" VerticalAlignment="Top" />
-        <RadioButton Content="RadioButton" Height="17" HorizontalAlignment="Left" Margin="295,363,0,0" Name="radioButton2" VerticalAlignment="Top" Width="14" Grid.Column="3" Checked="radioButton2_Checked" />
-        <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="186,355,127,301" Name="textBlock3" Text="连发模式" TextAlignment="Center" Grid.Column="3" />
+        <RadioButton Content="RadioButton" Grid.Column="3" HorizontalAlignment="Right" Margin="0,278,84,0" Name="radioButton1" Width="13" IsChecked="True" Checked="radioButton1_Checked" Height="27" VerticalAlignment="Top" />
+        <RadioButton Content="RadioButton" Height="17" HorizontalAlignment="Left" Margin="298,334,0,0" Name="radioButton2" VerticalAlignment="Top" Width="14" Grid.Column="3" Checked="radioButton2_Checked" />
+        <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="186,320,127,324" Name="textBlock3" Text="连发模式" TextAlignment="Center" Grid.Column="3" />
         <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="66,117,54,539" Name="textBlock4" Text="Kinect状态:" TextAlignment="Center" HorizontalAlignment="Stretch" />
         <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="67,117,218,539" Name="textBlock5" Text="OFF" TextAlignment="Center" Width="66" Grid.Column="1" Foreground="Lime" />
         <ComboBox Height="44" HorizontalAlignment="Left" Margin="327,537,0,0" Name="comboBox1" VerticalAlignment="Top" Width="41" Grid.Column="3" ItemsSource="{Binding}" DisplayMemberPath="" SelectionChanged="comboBox1_SelectionChanged" Text="5" FontSize="20">
@@ -34,8 +34,8 @@
             <ComboBoxItem Content="2" />
             <ComboBoxItem Content="1" />
         </ComboBox>
-        <TextBlock Name="textBlock2" Text="PPT模式" FontWeight="Bold" TextAlignment="Center" FontSize="20" Grid.Column="3" Margin="182,296,127,361" />
-        <my:KinectColorViewer HorizontalAlignment="Left" Name="kinectColorViewer1" VerticalAlignment="Top" Height="472" Width="540" Grid.ColumnSpan="2" Margin="100,212,0,0" />
+        <TextBlock Name="textBlock2" Text="PPT模式" FontWeight="Bold" TextAlignment="Center" FontSize="20" Grid.Column="3" Margin="186,270,127,384" />
+        <my:KinectColorViewer HorizontalAlignment="Left" Name="kinectColorViewer1" VerticalAlignment="Top" Height="472" Width="540" Grid.ColumnSpan="2" Margin="100,212,0,0" Loaded="kinectColorViewer1_Loaded" />
         <my:KinectSensorChooser Height="260" HorizontalAlignment="Left" Margin="114,340,0,0" Name="kinectSensorChooser1" VerticalAlignment="Top" Width="253" Loaded="kinectSensorChooser1_Loaded" IsEnabled="True" Grid.ColumnSpan="2" />
         <TextBlock FontSize="20" FontWeight="Bold" Height="28" HorizontalAlignment="Right" Margin="0,178,138,478" Name="textBlock6" Text="未检测到骨骼" TextAlignment="Left" Foreground="Lime" Width="190" Grid.Column="1" />
         <TextBlock FontSize="20" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="66,178,0,478" Name="textBlock7" Text="骨骼追踪:" TextAlignment="Center" Width="204" />
@@ -46,16 +46,19 @@
             <ComboBoxItem Content="RawBayerResolution1280x960Fps12" />
             <ComboBoxItem Content="RgbResolution1280x960Fps12" />
         </ComboBox>
-        <TextBlock FontSize="20" FontWeight="Bold" Margin="186,236,127,410" Name="textBlock9" Text="模式选择" TextAlignment="Center" Grid.Column="3" Foreground="#FF00FE00" />
+        <TextBlock FontSize="20" FontWeight="Bold" Margin="182,212,131,434" Name="textBlock9" Text="模式选择" TextAlignment="Center" Grid.Column="3" Foreground="#FF00FE00" />
         <TextBlock FontSize="20" FontWeight="Bold" Foreground="#FFE70000" Margin="66,36,54,616" Name="textBlock8" Text="分辨率/帧数" TextAlignment="Center" />
         <TextBlock FontSize="20" FontWeight="Bold" Foreground="#FFE70000" Margin="166,484,107,153" Name="textBlock10" Text="仰角设置" TextAlignment="Center" Grid.Column="3" />
-        <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="186,414,117,242" Name="textBlock11" Text="空气鼠标" TextAlignment="Center" Grid.Column="3" />
-        <CheckBox Content="CheckBox" Grid.Column="3" Height="19" HorizontalAlignment="Left" Margin="295,423,0,0" Name="checkBox1" VerticalAlignment="Top" Width="17" IsThreeState="False" Checked="checkBox1_Checked" />
+        <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="186,420,121,232" Name="textBlock11" Text="空气鼠标" TextAlignment="Center" Grid.Column="3" />
+        <CheckBox Content="CheckBox" Grid.Column="3" Height="19" HorizontalAlignment="Left" Margin="299,430,0,0" Name="checkBox1" VerticalAlignment="Top" Width="17" IsThreeState="False" Checked="checkBox1_Checked" />
         <my:KinectSkeletonViewer Grid.ColumnSpan="3" Height="427" HorizontalAlignment="Left" Margin="273,245,0,0" Name="kinectSkeletonViewer1" VerticalAlignment="Top" Width="305" Grid.Column="1" />
-        <TextBlock Grid.Column="3" Grid.ColumnSpan="2" Height="28" HorizontalAlignment="Left" Margin="314,417,0,0" Name="textBlock12" Text="(0,0)" VerticalAlignment="Top" Width="124" FontSize="18" TextAlignment="Center" />
-        <TextBlock FontSize="18" Height="28" HorizontalAlignment="Left" Margin="314,298,0,0" Name="textBlock13" Text="无动作" TextAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="3" Grid.ColumnSpan="2" />
-        <TextBlock FontSize="18" Height="28" HorizontalAlignment="Left" Margin="314,357,0,0" Name="textBlock14" Text="无动作" TextAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="3" Grid.ColumnSpan="2" DataContext="{Binding}" />
+        <TextBlock Grid.Column="3" Grid.ColumnSpan="2" Height="28" HorizontalAlignment="Left" Margin="314,424,0,0" Name="textBlock12" Text="(0,0)" VerticalAlignment="Top" Width="124" FontSize="18" TextAlignment="Center" />
+        <TextBlock FontSize="18" Height="28" HorizontalAlignment="Left" Margin="314,275,0,0" Name="textBlock13" Text="无动作" TextAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="3" Grid.ColumnSpan="2" />
+        <TextBlock FontSize="18" Height="28" HorizontalAlignment="Left" Margin="314,334,0,0" Name="textBlock14" Text="无动作" TextAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="3" Grid.ColumnSpan="2" DataContext="{Binding}" />
         <Image Grid.Column="1" Height="50" HorizontalAlignment="Left" Margin="292,31,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication3;component/Images/hand_cursor2.png" />
+        <TextBlock FontSize="20" FontWeight="Bold" Height="28" Margin="186,370,0,279" Name="textBlock15" Text="赛车模式" TextAlignment="Center" Grid.Column="3" HorizontalAlignment="Left" Width="93" />
+        <TextBlock FontSize="18" Height="28" HorizontalAlignment="Right" Margin="0,379,0,0" Name="textBlock16" Text="无动作" TextAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="3" Grid.ColumnSpan="2" />
+        <RadioButton Content="RadioButton" Height="17" HorizontalAlignment="Left" Margin="298,382,0,0" Name="radioButton3" VerticalAlignment="Top" Width="14" Grid.Column="3" Checked="radioButton3_Checked" />
     </Grid>
     <Window.Background>
         <ImageBrush ImageSource="file:///D:/360data/重要数据/我的文档/Visual%20Studio%202010/Projects/WpfApplication3/WpfApplication3/Resources/image.jpg" />

@@ -1,4 +1,6 @@
 // Upgrade NOTE: replaced 'PositionFog()' with multiply of UNITY_MATRIX_MVP by position
+// Upgrade NOTE: excluded shader from DX11 and Xbox360; has structs without semantics (struct v2f_pixel members normal,lightDirFade,uv)
+#pragma exclude_renderers d3d11 xbox360
 // Upgrade NOTE: replaced 'V2F_POS_FOG' with 'float4 pos : SV_POSITION'
 
 // Upgrade NOTE: replaced '_PPLAmbient' with 'UNITY_LIGHTMODEL_AMBIENT'

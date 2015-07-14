@@ -97,7 +97,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MouseToolkit.cs" />
+    <Compile Include="GUIAction\GUI.cs" />
+    <Compile Include="KinectTools\KinectEngie.cs" />
+    <Compile Include="KinectTools\KinectLoaded.cs" />
+    <Compile Include="KinectTools\KinectStatus.cs" />
+    <Compile Include="ModeScripts\MouseMode.cs" />
+    <Compile Include="ModeScripts\KeyBoardMode.cs" />
+    <Compile Include="Toolkits\MouseToolkit.cs" />
     <Compile Include="Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
@@ -124,7 +130,7 @@
     <Compile Include="Child.xaml.cs">
       <DependentUpon>Child.xaml</DependentUpon>
     </Compile>
-    <Compile Include="KeyboardToolkit.cs" />
+    <Compile Include="Toolkits\KeyboardToolkit.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -208,6 +214,7 @@
     <Resource Include="Images\tools.ico" />
     <Content Include="Microsoft.Samples.Kinect.WpfViewers.csproj" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
