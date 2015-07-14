@@ -3,7 +3,7 @@
 ##Kinect Module : KinectToolkit
 ###Introductions:
 A GUI Tookit so you can easily convert your movitation into Keyboard or Mouse actions.
-There is there modules:
+There are the modules in project:
 >* PPT mode :Once you strech your arm, one key will be send.
 >* HIT mode :The key will be pressing when you strech your arm.
 >* Air Mouse :Control you Mouse use your hand.
@@ -22,7 +22,6 @@ Environment : All codes were compiled succeed by VS2010
 >* you can raise your hand to control the mouse
 >* Air mouse
 
-
 **ver 1.0**
 >* Build a good view
 
@@ -30,7 +29,7 @@ Environment : All codes were compiled succeed by VS2010
 ###Introductions:
 A 3D car-racing game using keboard to control.
 
-Last version : 0.1
+Last version : 2.0
 Language : CSharp,JavaScript
 Environment : All codes were compiled succeed by Unity3D 3.5.7
 
@@ -39,5 +38,14 @@ Environment : All codes were compiled succeed by Unity3D 3.5.7
 ###Updates:
 **ver 0.1**
 >* Build car,walls,plane and you can move it freely.
+
+**ver 1.0**
+>* You can colider the pick ups and hide it.
+
+**ver 2.0**
+>* Add game sence,it has 3 stages.
+>* Add PickUp modules and Door modules.
+>* Add Next-stage-System.
+>* Add Drop check.
 
 
