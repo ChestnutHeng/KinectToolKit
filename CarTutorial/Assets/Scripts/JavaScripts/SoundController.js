@@ -165,7 +165,7 @@ function Awake()
 
 function Update()
 {
-	var carSpeed : float = car.GetComponent.<Rigidbody>().velocity.magnitude;
+	var carSpeed : float = car.rigidbody.velocity.magnitude;
 	var carSpeedFactor : float = Mathf.Clamp01(carSpeed / car.topSpeed);
 	
 	KAudio.volume = Mathf.Lerp(0, KVolume, carSpeedFactor);

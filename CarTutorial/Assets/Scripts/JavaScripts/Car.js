@@ -86,7 +86,7 @@ function Start()
 
 function Update()
 {		
-	var relativeVelocity : Vector3 = transform.InverseTransformDirection(GetComponent.<Rigidbody>().velocity);
+	var relativeVelocity : Vector3 = transform.InverseTransformDirection(rigidbody.velocity);
 	
 	GetInput();
 	
@@ -100,19 +100,23 @@ function Update()
 function FixedUpdate()
 {	
 	// The rigidbody velocity is always given in world space, but in order to work in local space of the car model we need to transform it first.
-	var relativeVelocity : Vector3 = transform.InverseTransformDirection(GetComponent.<Rigidbody>().velocity);
+	var relativeVelocity : Vector3 = transform.InverseTransformDirection(rigidbody.velocity);
 	
 	CalculateState();	
 	
-	//UpdateFriction(relativeVelocity);
+	UpdateFriction(relativeVelocity);
 	
 	UpdateDrag(relativeVelocity);
 	
-	//CalculateEnginePower(relativeVelocity);
+	CalculateEnginePower(relativeVelocity);
 	
 	ApplyThrottle(canDrive, relativeVelocity);
 	
 	ApplySteering(canSteer, relativeVelocity);
+	if (transform.position.y < -10)
+    {
+            Application.LoadLevel(Application.loadedLevel);
+    }
 }
 
 /**************************************************/
@@ -173,7 +177,7 @@ function SetupWheel(wheelTransform : Transform, isFrontWheel : boolean)
 	wheel.wheelGraphic = wheelTransform;
 	wheel.tireGraphic = wheelTransform.GetComponentsInChildren(Transform)[1];
 	
-	wheelRadius = wheel.tireGraphic.GetComponent.<Renderer>().bounds.size.y / 2;	
+	wheelRadius = wheel.tireGraphic.renderer.bounds.size.y / 2;	
 	wheel.collider.radius = wheelRadius;
 	
 	if (isFrontWheel)
@@ -195,7 +199,7 @@ function SetupWheel(wheelTransform : Transform, isFrontWheel : boolean)
 function SetupCenterOfMass()
 {
 	if(centerOfMass != null)
-		GetComponent.<Rigidbody>().centerOfMass = centerOfMass.localPosition;
+		rigidbody.centerOfMass = centerOfMass.localPosition;
 }
 
 function SetupGears()
@@ -306,8 +310,8 @@ function FlipCar()
 {
 	transform.rotation = Quaternion.LookRotation(transform.forward);
 	transform.position += Vector3.up * 0.5;
-	GetComponent.<Rigidbody>().velocity = Vector3.zero;
-	GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
+	rigidbody.velocity = Vector3.zero;
+	rigidbody.angularVelocity = Vector3.zero;
 	resetTimer = 0;
 	currentEnginePower = 0;
 }
@@ -327,7 +331,7 @@ function UpdateWheelGraphics(relativeVelocity : Vector3)
 		if(wheel.GetGroundHit(wh))
 		{
 			w.wheelGraphic.localPosition = wheel.transform.up * (wheelRadius + wheel.transform.InverseTransformPoint(wh.point).y);
-			w.wheelVelo = GetComponent.<Rigidbody>().GetPointVelocity(wh.point);
+			w.wheelVelo = rigidbody.GetPointVelocity(wh.point);
 			w.groundSpeed = w.wheelGraphic.InverseTransformDirection(w.wheelVelo);
 			
 			// Code to handle skidmark drawing. Not covered in the tutorial
@@ -369,7 +373,7 @@ function UpdateWheelGraphics(relativeVelocity : Vector3)
 						w.lastEmitPosition = wh.point;
 						w.lastEmitTime = Time.time;
 					
-						w.lastSkidmark = skidmarks.AddSkidMark(wh.point + GetComponent.<Rigidbody>().velocity * dt, wh.normal, (skidGroundSpeed * 0.1 + handbrakeSkidding) * Mathf.Clamp01(wh.force / wheel.suspensionSpring.spring), w.lastSkidmark);
+						w.lastSkidmark = skidmarks.AddSkidMark(wh.point + rigidbody.velocity * dt, wh.normal, (skidGroundSpeed * 0.1 + handbrakeSkidding) * Mathf.Clamp01(wh.force / wheel.suspensionSpring.spring), w.lastSkidmark);
 						sound.Skid(true, Mathf.Clamp01(skidGroundSpeed * 0.1));
 					}
 					else
@@ -440,8 +444,8 @@ function UpdateDrag(relativeVelocity : Vector3)
 	if(initialDragMultiplierX > dragMultiplier.x) // Handbrake code
 	{			
 		drag.x /= (relativeVelocity.magnitude / (topSpeed / ( 1 + 2 * handbrakeXDragFactor ) ) );
-		drag.z *= (1 + Mathf.Abs(Vector3.Dot(GetComponent.<Rigidbody>().velocity.normalized, transform.forward)));
-		drag += GetComponent.<Rigidbody>().velocity * Mathf.Clamp01(GetComponent.<Rigidbody>().velocity.magnitude / topSpeed);
+		drag.z *= (1 + Mathf.Abs(Vector3.Dot(rigidbody.velocity.normalized, transform.forward)));
+		drag += rigidbody.velocity * Mathf.Clamp01(rigidbody.velocity.magnitude / topSpeed);
 	}
 	else // No handbrake
 	{
@@ -452,7 +456,7 @@ function UpdateDrag(relativeVelocity : Vector3)
 		drag.x = -relativeVelocity.x * dragMultiplier.x;
 		
 
-	GetComponent.<Rigidbody>().AddForce(transform.TransformDirection(drag) * GetComponent.<Rigidbody>().mass * Time.deltaTime);
+	rigidbody.AddForce(transform.TransformDirection(drag) * rigidbody.mass * Time.deltaTime);
 }
 
 function UpdateFriction(relativeVelocity : Vector3)
@@ -519,12 +523,12 @@ function ApplyThrottle(canDrive : boolean, relativeVelocity : Vector3)
 		if (HaveTheSameSign(relativeVelocity.z, throttle))
 		{
 			if (!handbrake)
-				throttleForce = Mathf.Sign(throttle) * currentEnginePower * GetComponent.<Rigidbody>().mass;
+				throttleForce = Mathf.Sign(throttle) * currentEnginePower * rigidbody.mass;
 		}
 		else
-			brakeForce = Mathf.Sign(throttle) * engineForceValues[0] * GetComponent.<Rigidbody>().mass;
+			brakeForce = Mathf.Sign(throttle) * engineForceValues[0] * rigidbody.mass;
 		
-		GetComponent.<Rigidbody>().AddForce(transform.forward * Time.deltaTime * (throttleForce + brakeForce));
+		rigidbody.AddForce(transform.forward * Time.deltaTime * (throttleForce + brakeForce));
 	}
 }
 
@@ -533,7 +537,7 @@ function ApplySteering(canSteer : boolean, relativeVelocity : Vector3)
 	if(canSteer)
 	{
 		var turnRadius : float = 3.0 / Mathf.Sin((90 - (steer * 30)) * Mathf.Deg2Rad);
-		var minMaxTurn : float = EvaluateSpeedToTurn(GetComponent.<Rigidbody>().velocity.magnitude);
+		var minMaxTurn : float = EvaluateSpeedToTurn(rigidbody.velocity.magnitude);
 		var turnSpeed : float = Mathf.Clamp(relativeVelocity.z / turnRadius, -minMaxTurn / 10, minMaxTurn / 10);
 		
 		transform.RotateAround(	transform.position + transform.right * turnRadius * steer, 
@@ -550,15 +554,15 @@ function ApplySteering(canSteer : boolean, relativeVelocity : Vector3)
 			var rotationDirection : float = Mathf.Sign(steer); // rotationDirection is -1 or 1 by default, depending on steering
 			if(steer == 0)
 			{
-				if(GetComponent.<Rigidbody>().angularVelocity.y < 1) // If we are not steering and we are handbraking and not rotating fast, we apply a random rotationDirection
+				if(rigidbody.angularVelocity.y < 1) // If we are not steering and we are handbraking and not rotating fast, we apply a random rotationDirection
 					rotationDirection = Random.Range(-1.0, 1.0);
 				else
-					rotationDirection = GetComponent.<Rigidbody>().angularVelocity.y; // If we are rotating fast we are applying that rotation to the car
+					rotationDirection = rigidbody.angularVelocity.y; // If we are rotating fast we are applying that rotation to the car
 			}
 			// -- Finally we apply this rotation around a point between the cars front wheels.
 			transform.RotateAround( transform.TransformPoint( (	frontWheels[0].localPosition + frontWheels[1].localPosition) * 0.5), 
 																transform.up, 
-																GetComponent.<Rigidbody>().velocity.magnitude * Mathf.Clamp01(1 - GetComponent.<Rigidbody>().velocity.magnitude / topSpeed) * rotationDirection * Time.deltaTime * 2);
+																rigidbody.velocity.magnitude * Mathf.Clamp01(1 - rigidbody.velocity.magnitude / topSpeed) * rotationDirection * Time.deltaTime * 2);
 		}
 	}
 }
@@ -604,7 +608,27 @@ function EvaluateNormPower(normPower : float)
 
 function GetGearState()
 {
-	var relativeVelocity : Vector3 = transform.InverseTransformDirection(GetComponent.<Rigidbody>().velocity);
+	var relativeVelocity : Vector3 = transform.InverseTransformDirection(rigidbody.velocity);
 	var lowLimit : float = (currentGear == 0 ? 0 : gearSpeeds[currentGear-1]);
 	return (relativeVelocity.z - lowLimit) / (gearSpeeds[currentGear - lowLimit]) * (1 - currentGear * 0.1) + currentGear * 0.1;
 }
+ function OnCollisionEnter(obj:Collision)
+ {
+      if (obj.gameObject.CompareTag("Pick Up"))
+		{
+			Debug.Log(obj.gameObject.name);
+			obj.gameObject.active = false;
+			//obj.gameObject.SetActive(false);
+			//count = count + 1;
+			//SetCountText ();
+		}
+	  if(obj.gameObject.CompareTag("Door"))
+	  	Application.LoadLevel("Stage2");
+      else if (obj.gameObject.CompareTag("Door2"))
+      	Application.LoadLevel("Stage3");
+      else if(obj.gameObject.CompareTag("Door3"))
+      {
+        Debug.Log(obj.gameObject.name);
+        Application.Quit();
+      }
+ }

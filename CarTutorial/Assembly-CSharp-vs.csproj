@@ -12,14 +12,13 @@
 	<AssemblyName>Assembly-CSharp</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
-	<BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 	<DebugSymbols>true</DebugSymbols>
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_5_0_1;UNITY_5_0;UNITY_5;ENABLE_LICENSE_RENAME;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_NEW_HIERARCHY;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_NONPRO;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_7;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -37,64 +36,34 @@
 	<Reference Include="System" />
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
-	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity3/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity3/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CSharpScripts\BlobShadowController.cs" />
      <Compile Include="Assets\Scripts\CSharpScripts\CarCamera.cs" />
-     <Compile Include="Assets\Scripts\CSharpScripts\Colider.cs" />
+     <Compile Include="Assets\Scripts\CSharpScripts\NewCamera.cs" />
      <Compile Include="Assets\Scripts\CSharpScripts\Roll.cs" />
-     <None Include="Assets\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpDistort.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\NoiseEffectShaderRGB.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\GlowEffectDownsample.shader" />
+     <Compile Include="Assets\Scripts\CSharpScripts\level1.cs" />
      <None Include="Assets\Shaders\PolyTerrain\FirstPassLightmap.shader" />
      <None Include="Assets\Shaders\LightMappedDiffusetDetail.shader" />
      <None Include="Assets\Shaders\LightsEmmissive.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\ColorCorrectionEffect.shader" />
      <None Include="Assets\Shaders\ShadowProjection.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\MotionBlur.shader" />
      <None Include="Assets\Shaders\GlassReflect.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\Contrast Stretch\MinMaxReduction.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\Contrast Stretch\Apply.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\ColorCorrectionEffect_26.shader" />
-     <None Include="Assets\Pro Standard Assets\Glass Refraction\Glass-Stained-BumpSpecDistort.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\GlowEffectDownsample_26.shader" />
      <None Include="Assets\Shaders\Normal-BumpSpec_EnvLightmapped.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\SSAOShader.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\NoiseEffectShaderYUV.shader" />
      <None Include="Assets\Shaders\AlphaTest-Diffuse-GEqual.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Shaders\Skidmarks.shader" />
      <None Include="Assets\Shaders\Glassreflect2D.shader" />
-     <None Include="Assets\Pro Standard Assets\Water\Sources\FX-Water.shader" />
      <None Include="Assets\Shaders\GlassBuilding.shader" />
      <None Include="Assets\Shaders\PolyTerrain\polysplatting.cginc" />
-     <None Include="Assets\Pro Standard Assets\Image Based\GrayscaleEffect.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\SepiaToneEffect.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\TwirlEffect.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\VortexEffect.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\Contrast Stretch\Adaptation.shader" />
      <None Include="Assets\Shaders\Alpha-VertexLitGlow02.shader" />
-     <None Include="Assets\Pro Standard Assets\Image Based\EdgeDetectX.shader" />
      <None Include="Assets\Shaders\MirrorReflectionLit.shader" />
      <None Include="Assets\Shaders\TransparentLightMappedVertexLiZWrite.shader" />
      <None Include="Assets\Shaders\Alpha-Diffuse-ZWrite.shader" />
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>D:/Program Files/Unity/Editor/Data/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{FB069096-6CC6-8582-CAC4-3458826E2A91}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
