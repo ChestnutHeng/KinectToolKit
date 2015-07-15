@@ -29,7 +29,7 @@ Environment : All codes were compiled succeed by VS2010
 ###Introductions:
 A 3D car-racing game using keboard to control.
 
-Last version : 2.0
+Last version : 2.1
 Language : CSharp,JavaScript
 Environment : All codes were compiled succeed by Unity3D 3.5.7
 
@@ -48,4 +48,7 @@ Environment : All codes were compiled succeed by Unity3D 3.5.7
 >* Add Next-stage-System.
 >* Add Drop check.
 
+**ver 2.1**
+>* Add coins,cards,and rank system.
+>* Add pause function.
 
