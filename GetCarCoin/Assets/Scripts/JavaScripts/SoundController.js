@@ -42,6 +42,7 @@ private var FAudio : AudioSource = null;
 private var KAudio : AudioSource = null;
 private var LAudio : AudioSource = null;
 
+
 private var tunnelAudio : AudioSource = null;
 private var windAudio : AudioSource = null;
 private var skidAudio : AudioSource = null;
@@ -83,6 +84,16 @@ private var shiftPitch : float = 1.44;
 private var prevPitchFactor : float = 0;
 
 // Create the needed AudioSources
+function start()
+{
+	backgroundMusic = gameObject.AddComponent(AudioSource);
+	backgroundMusic.loop = true;
+	backgroundMusic.playOnAwake = true;
+	backgroundMusic.clip = BackgroundMusic;
+//	backgroundMusic.maxVolume = BackgroundMusicVolume;
+//	backgroundMusic.minVolume = BackgroundMusicVolume;
+	backgroundMusic.volume = BackgroundMusicVolume;
+}
 function Awake()
 {
 	car = transform.GetComponent(Car);

@@ -134,7 +134,9 @@ function FixedUpdate()
 	if (transform.position.y < -10)
     {
             Application.LoadLevel(Application.loadedLevel);
-            coinnum = 0;
+            if(Application.loadedLevel == 0) coinnum = 0;
+            if(Application.loadedLevel == 1) coinnum = 2;
+            if(Application.loadedLevel == 2) coinnum = 4;
             rank = 0;
     }
     GameObject.Find("Coins").guiText.text = "Coins: " + coinnum;
@@ -286,6 +288,9 @@ function Gamepause()
 		Application.LoadLevel("prosence");
 	if(Input.GetKey("]"))
 		Application.LoadLevel("stage1");
+	if(Input.GetKey("q"))
+		Application.Quit();
+		
 	
 
 }
