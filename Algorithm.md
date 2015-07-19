@@ -1,4 +1,5 @@
-﻿#Kinect模式识别算法设计
+﻿<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+#Kinect模式识别算法设计
 人的动作识别问题其实是一个模式识别问题，所以待解决的部分为特征提取和分类器的设计。
 
 ------
