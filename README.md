@@ -79,4 +79,4 @@ Environment : All codes were compiled succeed by Unity3D 3.5.7
 >* Add quit key(Q).
 
 **ver 2.3**
->*Fixed bugs and and reset key(B).
+>* Fixed bugs and and reset key(B).
