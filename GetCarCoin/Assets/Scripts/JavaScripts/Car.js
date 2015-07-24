@@ -285,7 +285,17 @@ function Gamepause()
 	   ppause.active = false;
 	}
 	if(Input.GetKey("["))
+	{
+		coinnum = 0;
 		Application.LoadLevel("prosence");
+	}
+	if(Input.GetKey("b"))
+	{
+		Application.LoadLevel(Application.loadedLevel);
+            if(Application.loadedLevel == 0) coinnum = 0;
+            if(Application.loadedLevel == 1) coinnum = 2;
+            if(Application.loadedLevel == 2) coinnum = 4;
+	}
 	if(Input.GetKey("]"))
 		Application.LoadLevel("stage1");
 	if(Input.GetKey("q"))
