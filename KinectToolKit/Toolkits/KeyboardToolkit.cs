@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ *  Copyright (C) 2012 Yutao. All rights reserved.
+ *
+ *  Send key message.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

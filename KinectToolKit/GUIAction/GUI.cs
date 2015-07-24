@@ -31,13 +31,20 @@ namespace KinectToolkit
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
+            comboBox4.SelectedIndex = 0;
             checkBox1.IsChecked = false;
+            
+            stopKinect();
+            
         }
         private void start_btn_Click(object sender, RoutedEventArgs e)
         {
             Timer timer1 = new Timer();
             timer1.Interval = 5;
             timer1.Start();
+            
+             
+            
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -59,16 +66,20 @@ namespace KinectToolkit
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            if (label == 0)
+            if (label == 0) 
             {
-                startKinect();
                 label = 1;
-            }
-            else
+                startKinect();
+                return;
+             }
+
+            if (label == 1) 
             {
-                stopKinect();
                 label = 0;
-            }
+                startKinect();
+                return;
+             }
+            
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -84,11 +95,14 @@ namespace KinectToolkit
         private void radioButton2_Checked(object sender, RoutedEventArgs e)
         {
             status = mode.much;
+            installtextblock();
             MessageBox.Show("double mode");
         }
 
         private void radioButton1_Checked(object sender, RoutedEventArgs e)
         {
+            try { installtextblock(); }
+            catch { }
             status = mode.single;
             if (firstClick == true) MessageBox.Show("single mode");
             firstClick = true;
@@ -96,14 +110,21 @@ namespace KinectToolkit
         private void radioButton3_Checked(object sender, RoutedEventArgs e)
         {
             status = mode.car;
+            installtextblock();
             MessageBox.Show("Now you can control your car.");
         }
         private void checkBox1_Checked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Now you can control your mouse.");
             status = mode.mouse;
+            //installtextblock();
+            MessageBox.Show("Now you can control your mouse.");
         }
         private void comboBox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            stopKinect();
+            startKinect();
+        }
+        private void comboBox4_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
@@ -116,6 +137,7 @@ namespace KinectToolkit
         {
             buttonangledown = (5 - comboBox2.SelectedIndex);
         }
+
     }
 
 }

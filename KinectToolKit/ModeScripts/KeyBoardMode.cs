@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 using Microsoft.Kinect;
 using Coding4Fun.Kinect.Wpf;
 using System.Timers;
+using System.Diagnostics;
+using System.IO;
+using System.Collections;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace KinectToolkit
@@ -23,6 +28,18 @@ namespace KinectToolkit
     {
         enum mode { single, much, mouse, car };
         mode status = mode.single;
+        public double bdiffer;
+        public int get_status;
+        public SkeletonPoint HipCenter;
+        public SkeletonPoint handRight;
+        public SkeletonPoint handLeft;
+        public SkeletonPoint spine;
+        public SkeletonPoint head;
+        public SkeletonPoint neck;
+        public SkeletonPoint leftleg;
+
+        public SkeletonPoint leftshoulder;
+        public SkeletonPoint rightshoulder;
 
         //Keyboard
 
@@ -31,7 +48,7 @@ namespace KinectToolkit
         private const double JumpDiffThreadhold = 0.05; //jump /m
         private double headPreviousPosition = 2.0; // firstvalue /m
 
-        void playSuperMario(Skeleton s)
+        private void playSuperMario(Skeleton s)
         {
             SkeletonPoint head = s.Joints[JointType.Head].Position;
             SkeletonPoint leftshoulder = s.Joints[JointType.ShoulderLeft].Position;
@@ -47,7 +64,6 @@ namespace KinectToolkit
             bool isLeftHandStretched = (leftshoulder.X - leftHand.X) > ArmStretchedThreadhold;
 
 
-            //判断头部的位置是否变高
             if ((head.Y - headPreviousPosition) > JumpDiffThreadhold)
             {
                 KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Up);
@@ -56,22 +72,20 @@ namespace KinectToolkit
             }
             headPreviousPosition = head.Y;
 
-            //玩超级玛丽
-            //右手水平伸展开
+            
             if (isRightHandStretched)
             {
                 KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Right);
                 textBlock14.Text = "Right";
             }
 
-            //左手水平伸展开
             if (isLeftHandStretched)
             {
                 KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Left);
                 textBlock14.Text = "Left";
 
             }
-            //双手同时举起
+
             if (isLeftHandRaised && isRightHandRaised)
             {
                 KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.B);
@@ -86,6 +100,8 @@ namespace KinectToolkit
         private const double ArmStretchedThreadhold4PPT = 0.4; //arm weigh in ppt
 
 
+
+
         private void presentPowerPoint(Skeleton s)
         {
             SkeletonPoint head = s.Joints[JointType.Head].Position;
@@ -94,6 +110,8 @@ namespace KinectToolkit
 
             SkeletonPoint leftHand = s.Joints[JointType.HandLeft].Position;
             SkeletonPoint rightHand = s.Joints[JointType.HandRight].Position;
+
+           
 
             bool isRightHandRaised = (rightHand.Y - rightshoulder.Y) > ArmRaisedThreshhold;
             bool isLeftHandRaised = (leftHand.Y - leftshoulder.Y) > ArmRaisedThreshhold;
@@ -147,49 +165,82 @@ namespace KinectToolkit
 
         }
 
-        private void PlayAirMouse(Skeleton s)
+ 
+
+        private void PlayCar(Skeleton s)
         {
-                    var joints = s.Joints;
 
-                    Joint rightHand = joints[JointType.HandRight];
-                    Joint leftHand = joints[JointType.HandLeft];
-                    Joint head = joints[JointType.Head];
-                    SkeletonPoint rightshoulder = s.Joints[JointType.ShoulderRight].Position;
-                    SkeletonPoint rightHand1 = s.Joints[JointType.HandRight].Position;
-                    //根据与Kinect的距离，来判定是左手还是右手来操作鼠标，兼容左右手习惯
-                    /*var hand = (rightHand.Position.Z < leftHand.Position.Z)
-                                    ? rightHand
-                                    : leftHand;*/
-                    var hand = rightHand;
-                    //如果手没有伸出，则不作跟踪。以头部的Z坐标为参照点
-                    if (head.Position.Z - hand.Position.Z <= ArmZStretchedThreshold)
-                    {
-                        return;
-                    }
-                    //模拟鼠标移动
-                    TrackHand2SimulateMouseMove(hand);
+            HipCenter = s.Joints[JointType.HipCenter].Position;
+            handRight = s.Joints[JointType.HandRight].Position;
+            handLeft = s.Joints[JointType.HandLeft].Position;
+            spine = s.Joints[JointType.Spine].Position;
+            head = s.Joints[JointType.Head].Position;
+            neck = s.Joints[JointType.ShoulderCenter].Position;
+            leftleg = s.Joints[JointType.KneeLeft].Position;
 
-                    // Righthand has been cancelled,this code is used to get track
-                    bool isLeftHandStretched = ((head.Position.X - leftHand.Position.X) > ArmXStretchedThreshold) &&
-                        ((head.Position.Z - leftHand.Position.Z) < ArmZStretchedThreshold);
+            SkeletonPoint leftshoulder = s.Joints[JointType.ShoulderLeft].Position;
+            SkeletonPoint rightshoulder = s.Joints[JointType.ShoulderRight].Position;
 
-                   /* bool isRightHandStreched = ((rightHand.Position.X - head.Position.X) > ArmXStretchedThreshold) &&
-                        ((head.Position.Z - rightHand.Position.Z) < ArmZStretchedThreshold);*/
-                    //bool isRightHandStreched = (rightHand1.X - rightshoulder.X) > ArmStretchedThreadhold;
+            //flip count
+            fcount++;
+            differ = 0;
+            bdiffer = 0;
 
-                    //left mouse down if right hand rised
-                    //if (isLeftHandStretched || isRightHandStreched)
-                    if (isLeftHandStretched)
-                    {
-                        MouseToolkit.mouse_event(MouseToolkit.MouseEventFlag.LeftDown, 0, 0, 0, 0);
-                        isMouseLeftButtonDown = true;
-                    }
-                    else if (isMouseLeftButtonDown)
-                    {
-                        isMouseLeftButtonDown = false;
-                        MouseToolkit.mouse_event(MouseToolkit.MouseEventFlag.LeftUp, 0, 0, 0, 0);
-                    }
-                }
+            //mode data
+            Set_stand_data();
+            Set_bow_data();
+
+
+           // modeRec();
+
+            if(comboBox4.SelectedIndex == 0) 
+                get_status = angleRec();
+            else 
+                get_status = vectorRec();
+
+            textBlock16.Text = "";
+            if (get_status == 1)
+            {
+                KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Up);
+                textBlock17.Text = "↑";
+            }
+            else if (get_status == -1)
+            {
+                KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Down);
+                textBlock17.Text = "↓";
+            }
+            else textBlock17.Text = "";
+
+            bool isRightHandPut = head.Z - handRight.Z  > 0.25;
+            bool isLeftHandPut = head.Z - handLeft.Z > 0.25;
+
+
+            if (isRightHandPut)
+            {
+
+                KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Right);
+                textBlock18.Text = "→";
+            }else if (isLeftHandPut)
+            {
+                KinectSuperMario.KeyboardToolkit.Keyboard.Type(Key.Left);
+                textBlock18.Text = "←";
+            }
+            else textBlock18.Text = " ";
+            
+            
+
+
+        }
+        private void installtextblock()
+        {
+
+           textBlock16.Text = "动";
+           textBlock17.Text = "无";
+           textBlock18.Text = "作";
+           textBlock14.Text = "无动作";
+           textBlock13.Text = "无动作";
+        }
+
                 
     }
 

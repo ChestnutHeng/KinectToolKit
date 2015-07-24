@@ -21,7 +21,7 @@ namespace KinectToolkit
 
     public partial class MainWindow : Window
     {
-        int label = 0;
+        int label = 1;
         KinectSensor _kinect;
         private void stopKinect()
         {
@@ -32,13 +32,21 @@ namespace KinectToolkit
                     //关闭Kinect设备
                     _kinect.Stop();
                     textBlock5.Text = "OFF";
-                    MessageBox.Show("Kinect已断开");
+                    System.Windows.MessageBox.Show("Kinect已断开");
                     return;
+                    
                 }
+                return;
             }
         }
         private void startKinect()
         {
+            if (label == 1)
+            {
+                stopKinect();
+                return;
+            }
+            
             if (label == 0)
             {
                 if (KinectSensor.KinectSensors.Count > 0)
@@ -49,8 +57,6 @@ namespace KinectToolkit
                     //firstLoaded = true;
                     if (_kinect.Status.ToString() == "Not Powered") GUIloaded();
                     //KinectSensor oldKinect = (KinectSensor)_kinect.OldValue;
-
-                    if (label == 1) stopKinect();
 
                     //KinectSensor kinect = (KinectSensor)_kinect.NewValue;
 

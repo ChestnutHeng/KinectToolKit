@@ -26,6 +26,9 @@ namespace KinectToolkit
         }
         //bool firstLoaded = false;
         bool firstClick = false;
+        public static bool Beginer = false;
+        public int fcount = 0;
+        public int click = 0;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         
@@ -36,6 +39,17 @@ namespace KinectToolkit
             WindowsClosing = true;
             stopKinect();
         }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            if (click == 0)
+                click = 1;
+            else click = 0;
+        }
+
+        
+
+ 
 
         
 

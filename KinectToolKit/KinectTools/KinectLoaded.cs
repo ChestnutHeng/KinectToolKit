@@ -56,6 +56,9 @@ namespace KinectToolkit
                     playSuperMario(s);
                 else if (checkBox1.IsChecked == true && status == mode.mouse)
                     PlayAirMouse(s);
+                else if (status == mode.car)
+                    PlayCar(s);
+                else MessageBox.Show("Error Status");
             }
             else { textBlock6.Text = "你在哪里？"; }
         }
