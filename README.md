@@ -49,8 +49,10 @@ Environment : All codes were compiled succeed by VS2010
 ###Introductions:
 A 3D car-racing game using keboard to control.
 
-Last version : 2.2
+Last version : 2.3
+
 Language : CSharp,JavaScript
+
 Environment : All codes were compiled succeed by Unity3D 3.5.7
 
 **Modules are from http://unity3d.com/support/resources/files/CarTutorial.zip**
@@ -73,5 +75,8 @@ Environment : All codes were compiled succeed by Unity3D 3.5.7
 >* Add pause function.
 
 **ver 2.2**
->* Add test stage.
->* Add quit key.
+>* Add test stage([,]).
+>* Add quit key(Q).
+
+**ver 2.3**
+>*Fixed bugs and and reset key(B).
